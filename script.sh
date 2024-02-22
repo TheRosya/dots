@@ -7,7 +7,7 @@ echo "installing hyprland-git"
 yay -S hyprland-git
 
 echo "installing main dependecies"
-yay -S cava alacritty waybar-git firefox noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra otf-font-awesome dolphin visual-studio-code-bin pavucontrol pipewire pipewire-jack lib32-pipewire-jack pipewire-alsa pipewire-pulse wireplumber hyprpaper hyprpicker grim slurp wl-clipboard qt5-wayland qt6-wayland qt5ct qt6ct dolphin xdg-desktop-portal xdg-desktop-portal-hyprland-git xdg-desktop-portal-gtk zoxide fzf xdg-user-dirs libva libva-nvidia-driver-git
+yay -S docker unzip wofi cava alacritty waybar-git firefox noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra otf-font-awesome dolphin visual-studio-code-bin pavucontrol pipewire pipewire-jack lib32-pipewire-jack pipewire-alsa pipewire-pulse wireplumber hyprpaper hyprpicker grim slurp wl-clipboard qt5-wayland qt6-wayland qt5ct qt6ct dolphin xdg-desktop-portal xdg-desktop-portal-hyprland-git xdg-desktop-portal-gtk zoxide fzf xdg-user-dirs libva libva-nvidia-driver-git
 
 echo "creating users directory"
 xdg-user-dirs-update
