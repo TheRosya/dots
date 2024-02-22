@@ -1,14 +1,13 @@
 #!/bin/bash
 echo "installing yay"
-cd && mkdir gitrepos
-cd gitrepos
-pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+cd && cd gitrepos
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
 echo "installing hyprland-git"
 yay -S hyprland-git
 
 echo "installing main dependecies"
-yay -S cava alacritty waybar-git firefox noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra otf-font-awesome dolphin visual-studio-code-bin pavucontrol pipewire pipewire-jack lib32-pipewire-jack pipewire-alsa pipewire-pulse wireplumber hyprpaper hyprpicker grim slurp wl-clipboard qt5-wayland qt6-wayland qt5ct qt6ct dolphin auto-cpufreq xdg-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk alsa zoxide fzf xdg-user-dirs libva libva-nvidia-driver-git
+yay -S cava alacritty waybar-git firefox noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra otf-font-awesome dolphin visual-studio-code-bin pavucontrol pipewire pipewire-jack lib32-pipewire-jack pipewire-alsa pipewire-pulse wireplumber hyprpaper hyprpicker grim slurp wl-clipboard qt5-wayland qt6-wayland qt5ct qt6ct dolphin xdg-desktop-portal xdg-desktop-portal-hyprland-git xdg-desktop-portal-gtk zoxide fzf xdg-user-dirs libva libva-nvidia-driver-git
 
 echo "creating users directory"
 xdg-user-dirs-update
@@ -18,7 +17,12 @@ echo eval "$(zoxide init --cmd cd bash)" >>~/.bashrc
 source ~/.bashrc
 
 echo "enabling auto-cpufreq"
-sudo systemctl enable --now auto-cpufreq
+cd ~/gitrepos
+git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+cd auto-cpufreq && sudo ./auto-cpufreq-installer
+
+
+cd ~/gitrepos/.dots
 
 echo "configuring git"
 git config --global user.name "hailRosya"
@@ -67,18 +71,19 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "after installation process"
 
-mv ./fonts ~/.local/share/
+mv $HOME/gitrepos/.dots/fonts $HOME/.local/share/
 fc-cache -fv
 
-cp -r ./waybar ~/.config/
-cp -r ./hypr ~/.config/
-cp -r ./alacritty ~/.config/
+cp -r $HOME/gitrepos/.dots/waybar $HOME/.config/
+cp -r $HOME/gitrepos/.dots/hypr $HOME/.config/
+cp -r $HOME/gitrepos/.dots/alacritty $HOME/.config/
 
 echo "setting wallpaper"
 ln -sf /home/rosya/.config/hypr/wallpapers/girl.jpg /home/rosya/.config/hypr/wallpaper.jpg
 
 echo "configuring firewall"
 yay -S ufw
+sudo systemctl enable ufw
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw enable
